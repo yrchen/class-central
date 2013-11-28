@@ -1,3 +1,6 @@
+BCCResqueBundle:
+    resource: "@BCCResqueBundle/Resources/config/routing.xml"
+    prefix:   /resque
 ClassCentralSiteBundle_instructor:
     resource: "@ClassCentralSiteBundle/Resources/config/routing/instructor.yml"
     prefix: /instructor
