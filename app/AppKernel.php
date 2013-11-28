@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new ClassCentral\SiteBundle\ClassCentralSiteBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new ClassCentral\ScraperBundle\ClassCentralScraperBundle(),
-            new \BCC\ResqueBundle\BCCResqueBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {          
@@ -28,7 +27,10 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
-        return $bundles;
+        if (in_array($this->getEnvironment(), array('resque'))) {
+            $bundles[] = new \BCC\ResqueBundle\BCCResqueBundle();
+        }
+            return $bundles;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
