@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new ClassCentral\SiteBundle\ClassCentralSiteBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new ClassCentral\ScraperBundle\ClassCentralScraperBundle(),
+            new ClassCentral\NotificationBundle\ClassCentralNotificationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {          

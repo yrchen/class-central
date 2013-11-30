@@ -1,0 +1,8 @@
+parameters:
+#    class_central_notification.example.class: ClassCentral\NotificationBundle\Example
+  mt_send_email: false
+
+services:
+#    class_central_notification.example:
+#        class: %class_central_notification.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
