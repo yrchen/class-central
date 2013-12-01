@@ -1,6 +1,0 @@
-_main:
-    resource: routing.yml
-
-BCCResqueBundle:
-  resource: "@BCCResqueBundle/Resources/config/routing.xml"
-  prefix:   /admin/resque

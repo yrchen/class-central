@@ -39,3 +39,7 @@ parameters:
 
     test_mailgun_api_key: ~
     test_mailgun_domain_name: ~
+
+    #redis
+    redis_host: localhost
+    redis_port: 6379

@@ -25,3 +25,7 @@ doctrine:
         user:     %test_database_user%
         password: %test_database_password%
         charset:  UTF8
+
+bcc_resque:
+    redis:
+        database: 7                          # the redis database

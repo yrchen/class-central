@@ -16,6 +16,11 @@ framework:
     session:         ~
     fragments:       ~
 
+bcc_resque:
+    redis:
+        host: %redis_host%                      # the redis host
+        port: %redis_port%                      # the redis port
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%

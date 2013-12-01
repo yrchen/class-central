@@ -16,7 +16,7 @@ monolog:
         main:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
-            level: debug
+            level: info
         firephp:
             type:  firephp
             level: info
@@ -29,3 +29,7 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+bcc_resque:
+    redis:
+        database: 6                         # the redis database
