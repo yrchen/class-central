@@ -33,7 +33,7 @@ ClassCentral\SiteBundle\Entity\SchedulerLog:
             column: job_id
     manyToOne:
         user:
-            targetEntity: Users
+            targetEntity: User
             cascade: {  }
             mappedBy: null
             inversedBy: null

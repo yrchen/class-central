@@ -40,7 +40,7 @@ class SchedulerLog
     private $jobId;
 
     /**
-     * @var \ClassCentral\SiteBundle\Entity\Users
+     * @var \ClassCentral\SiteBundle\Entity\User
      */
     private $user;
 
@@ -173,10 +173,10 @@ class SchedulerLog
     /**
      * Set user
      *
-     * @param \ClassCentral\SiteBundle\Entity\Users $user
+     * @param \ClassCentral\SiteBundle\Entity\User $user
      * @return SchedulerLog
      */
-    public function setUser(\ClassCentral\SiteBundle\Entity\Users $user = null)
+    public function setUser(\ClassCentral\SiteBundle\Entity\User $user = null)
     {
         $this->user = $user;
     
@@ -186,10 +186,22 @@ class SchedulerLog
     /**
      * Get user
      *
-     * @return \ClassCentral\SiteBundle\Entity\Users 
+     * @return \ClassCentral\SiteBundle\Entity\User
      */
     public function getUser()
     {
         return $this->user;
     }
+}
+
+abstract class SchedulerJobType {
+    const JOB_TYPE_SEARCH = 1;
+    const JOB_TYPE_COURSES = 2;
+}
+
+abstract class SchedulerStatus {
+    const STATUS_NEW = 1;    // The first time when the user is created. No need to run the job then
+    const STATUS_CREATED = 2; // Job is created
+    const STATUS_FINISHED = 3; // Job is finished
+
 }
