@@ -23,7 +23,7 @@ class HTMLNetwork extends NetworkAbstractInterface
           $url = "https://www.class-central.com/stream/". $stream->getSlug();
 
 
-        $this->output->writeln("<h1><a href='$url'>$name ($offeringCount)</a></h1>");
+        $this->output->writeln("<p><strong><a href='$url'>$name ($offeringCount)</a></strong></p>");
     }
 
     public function beforeOffering()
@@ -36,8 +36,9 @@ class HTMLNetwork extends NetworkAbstractInterface
         // Print the title line
         $titleLine = $offering->getName();
         $url = $offering->getUrl();
-        $url = 'https://www.class-central.com'. $this->router->generate('ClassCentralSiteBundle_mooc', array('id' => $offering->getCourse()->getId(), 'slug' => $offering->getCourse()->getSlug()));
-        $this->output->writeln("<a href='$url'>$titleLine</a><br/>");
+
+        $url = 'http://www.class-central.com'. $this->router->generate('ClassCentralSiteBundle_mooc', array('id' => $offering->getCourse()->getId(), 'slug' => $offering->getCourse()->getSlug()));
+        $this->output->writeln("<li><a href='$url'>$titleLine</a></li>");
 
         $secondLine = array();
         if ($offering->getStatus() == Offering::START_DATES_KNOWN)
@@ -66,7 +67,7 @@ class HTMLNetwork extends NetworkAbstractInterface
         $secondLine[] = $name;
         if (!empty($secondLine))
         {
-            $this->output->writeln("<i>" . implode(' | ', $secondLine) . "</i><br/>");
+            //$this->output->writeln("<i>" . implode(' | ', $secondLine) . "</i><br/>");
         }
     }
 }

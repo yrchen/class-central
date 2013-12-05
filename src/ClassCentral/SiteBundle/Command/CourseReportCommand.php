@@ -165,6 +165,15 @@ class CourseReportCommand extends ContainerAwareCommand
                     }
                 }
             }
+            $count = count($offerings);
+            $network->outInitiative($subject, $count);
+            $network->beforeOffering();
+            $output->writeln("<ol>");
+            foreach($offerings as $offering)
+            {               
+                $network->outOffering( $offering );
+            }
+            $output->writeln("</ol>");
         }
 
 
