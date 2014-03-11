@@ -77,6 +77,9 @@ languages:
    pattern: /languages
    defaults: { _controller: ClassCentralSiteBundle:Language:languages}
 
+providers:
+  pattern: /providers
+  defaults: { _controller: ClassCentralSiteBundle:Initiative:providers}
 lang:
     pattern:  /language/{slug}
     defaults: { _controller: ClassCentralSiteBundle:Language:view }

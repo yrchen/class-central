@@ -1,0 +1,83 @@
+{% extends 'ClassCentralSiteBundle::base.html.twig' %}
+
+{% block content %}
+
+{# show a list of all providers #}
+    <div id="providerPieChart" style="min-width: 400px; height: 400px; margin: 0 auto;"></div>
+{% for provider in providers %}
+
+    {% if courseCount[provider.id] is defined %}
+        <p>{{ provider.name }} ({{ courseCount[provider.id] }}) </p>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
+
+{%  block contentfooter %}
+    {# include the high charts library #}
+
+{% endblock %}
+
+{% block customJS %}
+
+
+    $(function () {
+        console.log("a1111111");
+        var chart;
+        $(document).ready(function() {
+
+            chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'providerPieChart',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            credits: {enabled:false},
+            title: {
+            text: 'Provider distribution',
+            style:{
+            fontSize:'20px'
+            }
+        },
+        tooltip: {
+            pointFormat: '<b>{point.y} courses</b>',
+            percentageDecimals: 1
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function() {
+                        return '<b>'+ this.point.name +'</b>: '+ this.percentage.toPrecision(2) +' %';
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Providers',
+            data: [
+                    {% set others = 0 %}
+                    {% for provider in providers %}
+                        {% if courseCount[provider.id] is defined %}
+                            {% if courseCount[provider.id] < 15 %}
+                                {% set others = others +  courseCount[provider.id] %}
+                            {% else %}
+                            [ '{{ provider.name }}', {{ courseCount[provider.id] }} ],
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                ['Others',{{ others }}]
+               ]
+            }]
+        });
+        });
+    console.log("a2222222");
+    });
+
+{% endblock %}

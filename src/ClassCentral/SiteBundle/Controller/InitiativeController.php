@@ -2,6 +2,8 @@
 
 namespace ClassCentral\SiteBundle\Controller;
 
+use ClassCentral\SiteBundle\Entity\CourseStatus;
+use ClassCentral\SiteBundle\Entity\UserCourse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use ClassCentral\SiteBundle\Entity\Initiative;
@@ -184,4 +186,60 @@ class InitiativeController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Shows all providers
+     */
+    public function providersAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cache = $this->get('Cache');
+
+        $info = $cache->get('providers_info', array($this, 'getProviders'));
+
+        return $this->render('ClassCentralSiteBundle:Initiative:providers.html.twig',array(
+            'page' => 'providers',
+            'providers' => $info['providers'],
+            'courseCount' => $info['courseCount'] // A map of initiative id to course counts
+
+        ));
+    }
+
+    /**
+     * Returns all the providers and a map of all the provider id to counts
+     *
+     */
+    public function getProviders()
+    {
+        $em = $this->getDoctrine()->getManager();
+        // Get all providers
+        $providers = $em->getRepository('ClassCentralSiteBundle:Initiative')->findAll();
+
+        $validStatusBound = CourseStatus::COURSE_NOT_SHOWN_LOWER_BOUND;
+        // Get provider count
+        $results = $em->createQuery("
+            SELECT i.id, count(DISTINCT c.id) as courseCount
+            FROM ClassCentralSiteBundle:Initiative i
+            JOIN i.courses c
+            WHERE c.status < $validStatusBound
+            GROUP BY c.initiative
+        ")->getArrayResult();
+
+        $providerCountMap = array();
+        foreach($results as $result)
+        {
+            if( $result['courseCount'] == 0 )
+            {
+                continue; // Do not show courses with no providers
+            }
+            $providerCountMap[ $result['id'] ] = $result['courseCount'];
+        }
+
+        return array(
+            'providers' => $providers,
+            'courseCount' => $providerCountMap
+        );
+    }
+
+
 }
