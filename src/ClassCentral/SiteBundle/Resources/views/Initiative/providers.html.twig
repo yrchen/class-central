@@ -2,82 +2,222 @@
 
 {% block content %}
 
-{# show a list of all providers #}
-    <div id="providerPieChart" style="min-width: 400px; height: 400px; margin: 0 auto;"></div>
-{% for provider in providers %}
+    <div class="providers-wrap">
 
-    {% if courseCount[provider.id] is defined %}
-        <p>{{ provider.name }} ({{ courseCount[provider.id] }}) </p>
-    {% endif %}
-{% endfor %}
+        <h1>Providers</h1>
+
+        <div class="providers-top-area">
+            <div class="providers-box">
+                <div class="providers-box-content">
+                    <div class="providers-box-row">
+                        <div class="provider-container">
+                            <img src="" alt="provider-logo">
+                            <div class="provider-data">
+                              <h3>Coursera</h3>
+                              <p>Total Course: <span class="course-count">617<span></p>
+                              <a href="">view all courses</a>
+                            </div>
+                        </div>
+                        <div class="provider-container">
+                            <img src="" alt="provider-logo">
+                            <div class="provider-data">
+                              <h3>Coursera</h3>
+                              <p>Total Course: <span class="course-count">617<span></p>
+                              <a href="">view all courses</a>
+                            </div>
+                        </div>                      
+                    </div>
+                    <div class="providers-box-row">
+                        <div class="provider-container">
+                            <img src="" alt="provider-logo">
+                            <div class="provider-data">
+                              <h3>Coursera</h3>
+                              <p>Total Course: <span class="course-count">617<span></p>
+                              <a href="">view all courses</a>
+                            </div>
+                        </div>
+                        <div class="provider-container">
+                            <img src="" alt="provider-logo">
+                            <div class="provider-data">
+                              <h3>Coursera</h3>
+                              <p>Total Course: <span class="course-count">617<span></p>
+                              <a href="">view all courses</a>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div class="providers-box-controls">
+                    <a href="" class="provider-control provider-control-left"></a>
+                    <a href="" class="view-all">View All Providers</a>
+                    <a href="" class="provider-control provider-control-right"></a>                 
+                </div>               
+            </div>
+            <div id="providerPieChart" style="min-width: 400px;"></div>
+        </div>
+        
+        <div class="search-providers-wrap">
+            <p>Search 40 providers:</p>
+            <div class="filter-search-wrap">
+                <input class="filter-search" placeholder="Search for a course">
+                <div class="filter-search-icon"></div>
+            </div>
+        </div>
+
+    {# show a list of all providers #}
+
+        <div class="provider-columns">
+            <div class="provider-column provider-column-1">
+               <p>Coursera <span class="provider-course-count">(644)</span> </p>      
+               <p>Udacity <span class="provider-course-count">(33)</span> </p>
+               <p>Brown University <span class="provider-course-count">(1)</span> </p>
+               <p>EdX <span class="provider-course-count">(131)</span> </p>   
+               <p>openHPI <span class="provider-course-count">(7)</span> </p>   
+               <p>NovoED <span class="provider-course-count">(25)</span> </p>   
+               <p>Class2Go <span class="provider-course-count">(3)</span> </p>   
+               <p>MRUniversity <span class="provider-course-count">(7)</span> </p>  
+               <p>MongoDB <span class="provider-course-count">(6)</span> </p>  
+               <p>OpenLearning <span class="provider-course-count">(10)</span> </p>  
+               <p>Canvas.net <span class="provider-course-count">(104)</span> </p>  
+               <p>Michigan State University <span class="provider-course-count">(1)</span> </p>  
+               <p>CourseSites <span class="provider-course-count">(55)</span> </p>  
+               <p>NPTEL <span class="provider-course-count">(4)</span> </p>   
+               <p>University of Amsterdam <span class="provider-course-count">(2)</span> </p>      
+               <p>MIT Media Lab <span class="provider-course-count">(1)</span> </p>   
+               <p>UWA Class2GO <span class="provider-course-count">(4)</span> </p>   
+               <p>Udemy <span class="provider-course-count">(1)</span> </p>  
+               <p>Open2Study <span class="provider-course-count">(50)</span> </p>  
+               <p>Stanford University <span class="provider-course-count">(13)</span> </p>  
+               <p>iversity <span class="provider-course-count">(28)</span> </p>
+            </div>
+            <div class="provider-column provider-column-2">
+                <p>Coursera <span class="provider-course-count">(644)</span> </p>      
+               <p>Udacity <span class="provider-course-count">(33)</span> </p>
+               <p>Brown University <span class="provider-course-count">(1)</span> </p>
+               <p>EdX <span class="provider-course-count">(131)</span> </p>   
+               <p>openHPI <span class="provider-course-count">(7)</span> </p>   
+               <p>NovoED <span class="provider-course-count">(25)</span> </p>   
+               <p>Class2Go <span class="provider-course-count">(3)</span> </p>   
+               <p>MRUniversity <span class="provider-course-count">(7)</span> </p>  
+               <p>MongoDB <span class="provider-course-count">(6)</span> </p>  
+               <p>OpenLearning <span class="provider-course-count">(10)</span> </p>  
+               <p>Canvas.net <span class="provider-course-count">(104)</span> </p>  
+               <p>Michigan State University <span class="provider-course-count">(1)</span> </p>  
+               <p>CourseSites <span class="provider-course-count">(55)</span> </p>  
+               <p>NPTEL <span class="provider-course-count">(4)</span> </p>   
+               <p>University of Amsterdam <span class="provider-course-count">(2)</span> </p>      
+               <p>MIT Media Lab <span class="provider-course-count">(1)</span> </p>   
+               <p>UWA Class2GO <span class="provider-course-count">(4)</span> </p>   
+               <p>Udemy <span class="provider-course-count">(1)</span> </p>  
+               <p>Open2Study <span class="provider-course-count">(50)</span> </p>  
+               <p>Stanford University <span class="provider-course-count">(13)</span> </p>  
+               <p>iversity <span class="provider-course-count">(28)</span> </p>
+            </div>
+            <div class="provider-column provider-column-3">
+                <p>Coursera <span class="provider-course-count">(644)</span> </p>      
+               <p>Udacity <span class="provider-course-count">(33)</span> </p>
+               <p>Brown University <span class="provider-course-count">(1)</span> </p>
+               <p>EdX <span class="provider-course-count">(131)</span> </p>   
+               <p>openHPI <span class="provider-course-count">(7)</span> </p>   
+               <p>NovoED <span class="provider-course-count">(25)</span> </p>   
+               <p>Class2Go <span class="provider-course-count">(3)</span> </p>   
+               <p>MRUniversity <span class="provider-course-count">(7)</span> </p>  
+               <p>MongoDB <span class="provider-course-count">(6)</span> </p>  
+               <p>OpenLearning <span class="provider-course-count">(10)</span> </p>  
+               <p>Canvas.net <span class="provider-course-count">(104)</span> </p>  
+               <p>Michigan State University <span class="provider-course-count">(1)</span> </p>  
+               <p>CourseSites <span class="provider-course-count">(55)</span> </p>  
+               <p>NPTEL <span class="provider-course-count">(4)</span> </p>   
+               <p>University of Amsterdam <span class="provider-course-count">(2)</span> </p>      
+               <p>MIT Media Lab <span class="provider-course-count">(1)</span> </p>   
+               <p>UWA Class2GO <span class="provider-course-count">(4)</span> </p>   
+               <p>Udemy <span class="provider-course-count">(1)</span> </p>  
+               <p>Open2Study <span class="provider-course-count">(50)</span> </p>  
+               <p>Stanford University <span class="provider-course-count">(13)</span> </p>  
+               <p>iversity <span class="provider-course-count">(28)</span> </p>
+            </div>
+        </div>
+
+    {% for provider in providers %}
+
+        {% if courseCount[provider.id] is defined %}
+            <p>{{ provider.name }} <span class="provider-course-count">({{ courseCount[provider.id] }})</span> </p>
+        {% endif %}
+    {% endfor %}
+    </div>
 
 {% endblock %}
 
-{%  block contentfooter %}
-    {# include the high charts library #}
+    {%  block contentfooter %}
+        {# include the high charts library #}
 
-{% endblock %}
+    {% endblock %}
 
-{% block customJS %}
+    {% block customJS %}
 
 
-    $(function () {
-        console.log("a1111111");
-        var chart;
-        $(document).ready(function() {
+        $(function () {
+            console.log("a1111111");
+            var chart;
+            $(document).ready(function() {
 
-            chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'providerPieChart',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
+                chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'providerPieChart',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    spacingBottom: 20,
+                    spacingTop: 20,
+                    spacingLeft: 20,
+                    spacingRight: 60,
+                    width: 485,
+                    height: 322
+                },
+                credits: {enabled:false},
+                title: {
+                text: 'Provider distribution',
+                style:{
+                fontSize:'20px'
+                }
             },
-            credits: {enabled:false},
-            title: {
-            text: 'Provider distribution',
-            style:{
-            fontSize:'20px'
-            }
-        },
-        tooltip: {
-            pointFormat: '<b>{point.y} courses</b>',
-            percentageDecimals: 1
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    formatter: function() {
-                        return '<b>'+ this.point.name +'</b>: '+ this.percentage.toPrecision(2) +' %';
+            tooltip: {
+                pointFormat: '<b>{point.y} courses</b>',
+                percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ this.percentage.toPrecision(2) +' %';
+                        }
                     }
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Providers',
-            data: [
-                    {% set others = 0 %}
-                    {% for provider in providers %}
-                        {% if courseCount[provider.id] is defined %}
-                            {% if courseCount[provider.id] < 15 %}
-                                {% set others = others +  courseCount[provider.id] %}
-                            {% else %}
-                            [ '{{ provider.name }}', {{ courseCount[provider.id] }} ],
+            },
+            series: [{
+                type: 'pie',
+                name: 'Providers',
+                data: [
+                        {% set others = 0 %}
+                        {% for provider in providers %}
+                            {% if courseCount[provider.id] is defined %}
+                                {% if courseCount[provider.id] < 15 %}
+                                    {% set others = others +  courseCount[provider.id] %}
+                                {% else %}
+                                [ '{{ provider.name }}', {{ courseCount[provider.id] }} ],
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                ['Others',{{ others }}]
-               ]
-            }]
+                        {% endfor %}
+                    ['Others',{{ others }}]
+                   ]
+                }]
+            });
+            });
+        console.log("a2222222");
         });
-        });
-    console.log("a2222222");
-    });
-
+    
 {% endblock %}
