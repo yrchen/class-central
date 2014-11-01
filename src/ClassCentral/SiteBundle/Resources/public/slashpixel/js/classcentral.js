@@ -76,9 +76,9 @@ jQuery(function($) {
     function addRemoveCourse(listId, courseId, checked,name) {
         try{
             if(checked){
-                ga('send','event','My Courses - Add',listId.toString(), courseId.toString());
+                _gaq.push(['_trackEvent','My Courses - Add',listId.toString(), courseId.toString()]);
             }else {
-                ga('send','event','My Courses - Remove', listId.toString(),  courseId.toString() );
+                _gaq.push(['_trackEvent','My Courses - Remove', listId.toString(),  courseId.toString() ]);
             }
         }catch(err){}
         if(checked){
@@ -235,9 +235,9 @@ jQuery(function($) {
     var updateSubscription = function(code, checked) {
         try{
             if(checked){
-                ga('send','event','Newsletter Preferences','Subscribed', code);
+                _gaq.push(['_trackEvent','Newsletter Preferences','Subscribed', code]);
             }else {
-                ga('send','event','Newsletter Preferences','Unsubscribed', code);
+                _gaq.push(['_trackEvent','Newsletter Preferences','Unsubscribed', code]);
             }
         }catch(err){}
 
@@ -282,9 +282,9 @@ jQuery(function($) {
     var updateUserPreference = function(prefId, checked) {
         try{
             if(checked){
-                ga('send','event','MOOC Tracker Preferences','Checked', prefId);
+                _gaq.push(['_trackEvent','MOOC Tracker Preferences','Checked', prefId]);
             }else {
-                ga('send','event','MOOC Tracker Preferences','UnChecked', prefId);
+                _gaq.push(['_trackEvent','MOOC Tracker Preferences','UnChecked', prefId]);
             }
         }catch(err){}
         if(checked){
@@ -357,9 +357,9 @@ jQuery(function($) {
         if(!validationError) {
             try{
                 if(review.reviewId === undefined){
-                    ga('send','event', 'Create Review', " " + $('#courseId').data("value"));
+                    _gaq.push(['_trackEvent', 'Create Review', " " + $('#courseId').data("value")]);
                 } else {
-                    ga('send','event', 'Update Review'," " +  $('#courseId').data("value"));
+                    _gaq.push(['_trackEvent', 'Update Review'," " +  $('#courseId').data("value")]);
                 }
             } catch(err){}
 
@@ -578,7 +578,7 @@ jQuery(function($) {
             targetTab = 'create-free-account'; // signup button
         }
         try {
-            ga('send','event','Homepage Tab clicks',targetTab);
+            _gaq.push(['_trackEvent','Homepage Tab clicks',targetTab]);
         } catch (e) {
             console.log("error");
         }
@@ -634,7 +634,7 @@ jQuery(function($) {
         e.preventDefault();
         $('#signupForm').modal('show');
         try {
-            ga('send','event','Create Free Account','Home Tab');
+            _gaq.push(['_trackEvent','Create Free Account','Home Tab']);
         }catch (e){}
     });
 
@@ -642,7 +642,7 @@ jQuery(function($) {
         e.preventDefault();
         $('#signupForm').modal('show');
         try {
-            ga('send','event','Create Free Account','Convincer');
+            _gaq.push(['_trackEvent','Create Free Account','Convincer']);
         }catch (e){}
     });
 
@@ -657,7 +657,7 @@ jQuery(function($) {
                 var dataName = $('#navbar-search-form .tt-suggestion.tt-cursor a').data("name");
                 window.location = $('#navbar-search-form .tt-suggestion.tt-cursor a').attr('href');
                 try {
-                    ga('send','event', 'Search Autocomplete' , dataType, dataName );
+                    _gaq.push(['_trackEvent', 'Search Autocomplete' , dataType, dataName ]);
                 }catch (e){}
             } else if ($('#navbar-search-form .tt-suggestion.tt-cursor .search-view-all').length ) {
                 $('#navbar-search-form').submit();
@@ -768,18 +768,150 @@ jQuery(function($) {
         }
     });
 
+    // classbot search form
+    $('#classbot-search-input').on("keydown.cc", function (e) {
+        $this = $(this);
+        if (e.which == 13) {
+
+            if ($('#classbot-search-container .tt-suggestion.tt-cursor a').attr('href') !== undefined && $('#classbot-search-container .tt-suggestion.tt-cursor .search-view-all').length === 0) {
+                var dataType = $('#classbot-search-container .tt-suggestion.tt-cursor a').data("type");
+                var dataName = $('#classbot-search-container .tt-suggestion.tt-cursor a').data("name");
+
+                window.location = $('#classbot-search-container .tt-suggestion.tt-cursor a').attr('href');
+
+                try {
+                    _gaq.push(['_trackEvent', 'Search Autocomplete' , dataType, dataName ]);
+                }catch (e){}
+            } else if ($('#classbot-search-container .tt-suggestion.tt-cursor .search-view-all').length ) {
+                $('#classbot-search-container form').submit();
+                return false;
+            } else if ( $this.is(":focus") ) {
+                $('#classbot-search-container form').submit();
+            }
+        }
+    });
+
+    $('#classbot-search-input')
+        .typeahead(null, {
+            name: '',
+            displayKey: 'name',
+            source: ccSearch.ttAdapter(),
+            templates: {
+                empty: [],
+                suggestion: function (data) {
+                    var templateScript;
+
+                    if (data.payload.type === "course") {
+                        templateScript = $("#course-template").html();
+                    } else if (data.payload.type === "subject") {
+                        templateScript = $("#subject-template").html();
+                    } else if (data.payload.type === "provider") {
+                        templateScript = $("#provider-template").html();
+                    } else if (data.payload.type === "institution") {
+                        templateScript = $("#uni-template").html();
+                    } else if (data.payload.type === "footer-template") {
+                        templateScript = $("#footer-template").html();
+                    } else {
+                        templateScript = $("#base-template").html();
+                    }
+
+                    var suggestionTemplate = Handlebars.compile(templateScript);
+                    return suggestionTemplate(data);
+                }
+            }
+        });
+
+    $('#classbot-search-container .tt-dropdown-menu').addClass("js-no-custom-scrollbar");
+
+    $('#classbot-search-container .tt-dropdown-menu').on('click', '.search-view-all', function(e) {
+        e.preventDefault();
+        $('#classbot-search-input').val($('#classbot-search-input').typeahead('val'));
+        $('#classbot-search-container form').submit();
+        return false;
+    });
+
+
+    //classbot scrollbar
+    /*
+     var $classbotScrollbar = $("#classbot-search-container .tt-dropdown-menu");
+     $classbotScrollbar.removeClass("js-no-custom-scrollbar").addClass("js-custom-scrollbar");
+     $("#classbot-search-container .tt-dropdown-menu > div").wrapAll('<div class="overview" />');
+     $("#classbot-search-container .tt-dropdown-menu .overview").wrapAll('<div class="viewport" />');
+     $classbotScrollbar.prepend('<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>');
+     console.log($classbotScrollbar);
+     $classbotScrollbar.tinyscrollbar();
+
+     var classbotScrollbar = $classbotScrollbar.data("plugin_tinyscrollbar");
+     classbotScrollbar.update();
+
+
+     var scrollHeight;
+     var realHeight;
+
+     $('#classbot-search-container .tt-dropdown-menu .overview').bind("DOMSubtreeModified", function() {
+
+     setTimeout(function() {
+
+     scrollHeight = $("#classbot-search-container .tt-dropdown-menu .overview .tt-suggestion:first-child").height() * 7;
+     realHeight = $("#classbot-search-container .tt-dropdown-menu .overview .tt-suggestions").height();
+
+     console.log(scrollHeight);
+     if  (scrollHeight < realHeight) {
+     $("#classbot-search-container .tt-dropdown-menu .viewport").height(scrollHeight);
+     } else {
+     $("#classbot-search-container .tt-dropdown-menu .viewport").height(realHeight);
+     }
+
+     console.log("update");
+     classbotScrollbar.update();
+     }, 500);
+     });
+
+     */
+
+    $('#classbot-search-input').on("keydown.cc", function (e) {
+        $this = $(this);
+        if (e.which == 38 || e.which == 40 ) {
+            if ($('#classbot-search-container .tt-suggestion.tt-cursor .suggestions-footer').length) {
+                $this.val($this.typeahead('val'));
+            }
+        }
+    });
+
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+    var lazyClassbotToggle = debounce(function() {
+        $('#classbot').modal('toggle');
+    }, 150);
+
     $(document).bind('keydown', function(e) {
         if(e.ctrlKey && (e.which == 76)) {
             e.preventDefault();
-            $( "#navbar-search-form #st-search-input" ).focus();
-            return false;
+            if (Modernizr.touch) {
+                $( "#navbar-search-form #st-search-input" ).focus();
+                return false;
+            } else {
+                lazyClassbotToggle();
+                return false;
+            }
         }
     });
 
 
     //general search form typeahead
-
-
     $('#general-search #st-search-input').on("keydown.cc", function (e) {
         $this = $(this);
         if (e.which == 13) {
@@ -791,7 +923,7 @@ jQuery(function($) {
                 window.location = $('#general-search .tt-suggestion.tt-cursor a').attr('href');
 
                 try {
-                    ga('send','event', 'Search Autocomplete' , dataType, dataName );
+                    _gaq.push(['_trackEvent', 'Search Autocomplete' , dataType, dataName ]);
                 }catch (e){}
             } else if ($('#general-search .tt-suggestion.tt-cursor .search-view-all').length ) {
                 $('#general-search form').submit();
@@ -861,6 +993,24 @@ jQuery(function($) {
         }
     });
 
+    //Classbot
+    $('#classbot').on('show.bs.modal', function (e) {
+        $("body").addClass("classbot-open");
+    });
+
+    $('#classbot').on('shown.bs.modal', function (e) {
+        $("#classbot-search-input").focus();
+    });
+
+    $('#classbot').on('hidden.bs.modal', function (e) {
+        $("body").removeClass("classbot-open");
+        $("#classbot-search-input").blur();
+    });
+
+
+
+
+
     //html5 video play button
     function vidplay() {
         var video;
@@ -879,6 +1029,5 @@ jQuery(function($) {
     }
 
     vidplay();
-
 
 });

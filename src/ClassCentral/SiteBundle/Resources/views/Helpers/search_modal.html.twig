@@ -1,0 +1,24 @@
+<!-- Search modal -->
+<div class="modal fade classbot-modal" id="classbot" tabindex="-1" role="dialog" aria-labelledby="Classbot search modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="classbot-modal-header">
+                <div class="classbot-modal-header__cc-logo-wrap">
+                    <svg class="icon classbot-modal-header__cc-logo" viewBox="0 0 32 32">
+                        <use xlink:href="#icon-cc-logo-circle2"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div id="classbot-search-container">
+                    <form action="{{ path('ClassCentralSiteBundle_search') }}" method="get" name="search" id="classbot-search-form">
+                        <input class="classbot-search-box" placeholder="search" id="classbot-search-input" type="text" name="q">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
