@@ -2,19 +2,18 @@ Vagrant.configure("2") do |config|
   config.hostmanager.enabled      = true
   config.hostmanager.manage_host  = true
 
-  # configure 1GB (1024MB) of memory
+  # configure 2GB (2048MB) of memory
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", 1024]
+    vb.customize ["modifyvm", :id, "--memory", 2048]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
   config.vm.provider :vmware_fusion do |vw|
-    vw.vmx["memsize"] = "1024"
+    vw.vmx["memsize"] = "2048"
   end
 
-  # Vagrant box config (Ubuntu 12.04)
-  config.vm.box       = "precise32"
-  config.vm.box_url   = "http://files.vagrantup.com/precise32.box"
+  # Vagrant box config (Ubuntu 14.04 LTS)
+  config.vm.box	      = "ubuntu/trusty64"
   config.vm.hostname  = "classcentral"
 
   config.hostmanager.aliases = %w(classcentral.dev)
@@ -26,7 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", :nfs => true
 
   # Mount local SSH keys for deployments
-  config.vm.synced_folder "~/.ssh", "/home/vagrant/.ssh"
+  # config.vm.synced_folder "~/.ssh", "/home/vagrant/.ssh"
 
   # Setup basic provisioning
   config.vm.provision :shell, :path => "./bin/provision.sh"
