@@ -83,7 +83,10 @@ __create_profile $PROVISION_BASE/.profile
 chown vagrant:vagrant $PROVISION_BASE/.profile
 
 __echo "Installing LAMP Server stack"
-apt-get -q -y install lamp-server^ php5-cli php5-dev php5-curl php5-intl
+apt-get -q -y install lamp-server^ php5-cli php5-dev php5-curl php5-intl php5-mcrypt
+
+# Enable mcrypt
+php5enmod mcrypt
 
 if [[ ! -e /etc/apache2/envvars.backup ]]; then
     __echo "Updating APACHE_RUN_(USER|GROUP) in /etc/apache2/envvars"
@@ -127,7 +130,7 @@ fi
 
 if [[ ! -e /etc/apache2/sites-enabled/000-classcentral ]]; then
     __echo "Create and enable ClassCentral vhost"
-    __create_vhost /etc/apache2/sites-available/000-classcentral
+    __create_vhost /etc/apache2/sites-available/000-classcentral.conf
     a2ensite 000-classcentral
     a2enmod rewrite
 fi
