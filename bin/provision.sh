@@ -43,8 +43,7 @@ __create_vhost () {
     <Directory /vagrant/web/>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     ErrorLog ${APACHE_LOG_DIR}/classcentral-error.log
