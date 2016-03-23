@@ -123,12 +123,12 @@ if [[ ! -e /etc/php5/apache2/php.ini.backup ]]; then
     sed -i 's/^;error_log[[:blank:]]*=[[:blank:]]*syslog$/error_log = \/vagrant\/app\/logs\/php_errors.log/g' /etc/php5/apache2/php.ini
 fi
 
-if [[ -e /etc/apache2/sites-enabled/000-default ]]; then
+if [[ -e /etc/apache2/sites-enabled/000-default.conf ]]; then
     __echo "Disable default apache site"
     a2dissite 000-default
 fi
 
-if [[ ! -e /etc/apache2/sites-enabled/000-classcentral ]]; then
+if [[ ! -e /etc/apache2/sites-enabled/000-classcentral.conf ]]; then
     __echo "Create and enable ClassCentral vhost"
     __create_vhost /etc/apache2/sites-available/000-classcentral.conf
     a2ensite 000-classcentral
